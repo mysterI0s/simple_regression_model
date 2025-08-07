@@ -7,6 +7,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 
+## I should upgrade the model further and have more advanced models with higher success rates
+
 # Load dataset
 california = fetch_california_housing(as_frame=True)
 df = california.frame
@@ -68,3 +70,15 @@ rf_r2 = r2_score(y_test, rf_preds)
 
 print(f"[Random Forest] RMSE: {rf_rmse:.2f}")
 print(f"[Random Forest] R² Score: {rf_r2:.2f}")
+
+importances = rf_model.feature_importances_
+features = X.columns
+
+importance_df = pd.DataFrame({
+    'Feature': features,
+    'Importance': importances
+}).sort_values(by="Importance", ascending=False)
+
+print(importance_df)
+
+
